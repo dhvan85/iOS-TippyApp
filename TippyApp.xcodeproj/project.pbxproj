@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		40017FF71D8B005B00941ABC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40017FF61D8B005B00941ABC /* SettingsViewController.swift */; };
+		40017FFB1D8B133A00941ABC /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 40017FFA1D8B133A00941ABC /* README.md */; };
 		40536F9A1D8905DE008C6077 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40536F991D8905DE008C6077 /* AppDelegate.swift */; };
 		40536F9C1D8905DE008C6077 /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40536F9B1D8905DE008C6077 /* TipViewController.swift */; };
 		40536F9F1D8905DE008C6077 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40536F9D1D8905DE008C6077 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		40017FF61D8B005B00941ABC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		40017FFA1D8B133A00941ABC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		40536F961D8905DE008C6077 /* TippyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TippyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40536F991D8905DE008C6077 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40536F9B1D8905DE008C6077 /* TipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		40536F8D1D8905DE008C6077 = {
 			isa = PBXGroup;
 			children = (
+				40017FFA1D8B133A00941ABC /* README.md */,
 				40536F981D8905DE008C6077 /* TippyApp */,
 				40536FAD1D8905DF008C6077 /* TippyAppTests */,
 				40536FB81D8905DF008C6077 /* TippyAppUITests */,
@@ -262,6 +265,7 @@
 			files = (
 				40536F9C1D8905DE008C6077 /* TipViewController.swift in Sources */,
 				40536F9A1D8905DE008C6077 /* AppDelegate.swift in Sources */,
+				40017FFB1D8B133A00941ABC /* README.md in Sources */,
 				40017FF71D8B005B00941ABC /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

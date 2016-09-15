@@ -33,7 +33,7 @@ class TipViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         let defaults = NSUserDefaults.standardUserDefaults()
         let index = defaults.integerForKey("default_tip")
-        
+        billText.becomeFirstResponder()
         percentSegment.selectedSegmentIndex = index
         updateTip()
     }
