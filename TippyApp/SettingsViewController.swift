@@ -10,7 +10,14 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet weak var themeSwitch: UISwitch!
     @IBOutlet weak var defaultSegment: UISegmentedControl!
+    @IBOutlet var thisView: UIView!
+    
+    @IBOutlet weak var tipLabel: UILabel!
+    @IBOutlet weak var darkThemeLabel: UILabel!
+    let userDefaults = NSUserDefaults.standardUserDefaults()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,10 +25,12 @@ class SettingsViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let index = defaults.integerForKey("default_tip")
+        let index = userDefaults.integerForKey("default_tip")
         
+        themeSwitch.on = userDefaults.boolForKey("default_theme")
         defaultSegment.selectedSegmentIndex = index
+        
+        updateTheme()
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,12 +39,33 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func onValueChanged(sender: AnyObject) {
-        let defaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setInteger(defaultSegment.selectedSegmentIndex, forKey: "default_tip")
         
-        defaults.setInteger(defaultSegment.selectedSegmentIndex, forKey: "default_tip")
-        
-        defaults.synchronize()
+        userDefaults.synchronize()
     }
+
+    @IBAction func changeTheme(sender: AnyObject) {
+        userDefaults.setBool(themeSwitch.on, forKey: "default_theme")
+        updateTheme()
+    }
+    
+    func updateTheme() {
+        if (userDefaults.boolForKey("default_theme") == true) {
+            thisView.backgroundColor = UIColor.darkGrayColor()
+            
+            tipLabel.textColor = UIColor.whiteColor()
+            darkThemeLabel.textColor = UIColor.whiteColor()
+            defaultSegment.tintColor = UIColor.yellowColor()
+        }
+        else {
+            thisView.backgroundColor = UIColor.whiteColor()
+            
+            tipLabel.textColor = UIColor.darkTextColor()
+            darkThemeLabel.textColor = UIColor.darkTextColor()
+            defaultSegment.tintColor = UIColor(red:CGFloat(23) / 255, green: CGFloat(122) / 255, blue: CGFloat(255) / 255, alpha: CGFloat(1))
+        }
+    }
+    
 
     /*
     // MARK: - Navigation

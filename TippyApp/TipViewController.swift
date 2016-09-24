@@ -14,10 +14,16 @@ class TipViewController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var billText: UITextField!
+    @IBOutlet weak var billLabel: UILabel!
+    @IBOutlet weak var horizontalLine: UIView!
+    @IBOutlet var thisView: UIView!
+    @IBOutlet weak var totalValue: UILabel!
     
+    @IBOutlet weak var tipValue: UILabel!
     let percentArray = [0.18, 0.2, 0.25]
     let currentLocale = NSLocale.currentLocale()
     let formater = NSNumberFormatter()
+    let userDefaults = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +34,7 @@ class TipViewController: UIViewController {
     }
     
     func willEnterForeground(notification: NSNotification!) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let date = defaults.objectForKey("last_time") as? NSDate
+        let date = userDefaults.objectForKey("last_time") as? NSDate
 
         if date != nil && date!.timeIntervalSinceNow < -60 {
             billText.text = ""
@@ -42,13 +47,13 @@ class TipViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let index = defaults.integerForKey("default_tip")
+        let index = userDefaults.integerForKey("default_tip")
         
         billText.becomeFirstResponder()
         percentSegment.selectedSegmentIndex = index
         
         updateTip()
+        updateTheme()
     }
    
     override func didReceiveMemoryWarning() {
@@ -57,18 +62,46 @@ class TipViewController: UIViewController {
     }
     
     func updateTip(){
-        let billValue = Double(billText.text!) ?? 0
-        let tipValue = billValue * percentArray[percentSegment.selectedSegmentIndex]
-        let totalValue = billValue + tipValue
+        let billAmount = Double(billText.text!) ?? 0
+        let tipAmount = billAmount * percentArray[percentSegment.selectedSegmentIndex]
+        let totalAmount = billAmount + tipAmount
         
-        tipLabel.text = formater.stringFromNumber(tipValue)// String(format: "$%.2f", tipValue)
-        totalLabel.text = formater.stringFromNumber(totalValue) //String(format: "$%.2f", totalValue)
+        tipValue.text = formater.stringFromNumber(tipAmount)
+        totalValue.text = formater.stringFromNumber(totalAmount)
+        
+        self.totalValue.alpha = 0.2
+        UIView.animateWithDuration(0.5, animations: {
+            self.totalValue.alpha = 1
+        })
+    }
+    
+    func updateTheme() {
+        if (userDefaults.boolForKey("default_theme") == true) {
+            thisView.backgroundColor = UIColor.darkGrayColor()
+            
+            tipLabel.textColor = UIColor.whiteColor()
+            totalLabel.textColor = UIColor.whiteColor()
+            billLabel.textColor = UIColor.whiteColor()
+            tipValue.textColor = UIColor.whiteColor()
+            totalValue.textColor = UIColor.yellowColor()
+            horizontalLine.backgroundColor = UIColor.whiteColor()
+            percentSegment.tintColor = UIColor.yellowColor();
+        }
+        else {
+            thisView.backgroundColor = UIColor.whiteColor()
+            
+            tipLabel.textColor = UIColor.darkTextColor()
+            totalLabel.textColor = UIColor.darkTextColor()
+            billLabel.textColor = UIColor.darkTextColor()
+            tipValue.textColor = UIColor.darkTextColor()
+            totalValue.textColor = UIColor(red:CGFloat(23) / 255, green: CGFloat(122) / 255, blue: CGFloat(255) / 255, alpha: CGFloat(1))
+            horizontalLine.backgroundColor = UIColor.darkTextColor()
+            percentSegment.tintColor = UIColor(red:CGFloat(23) / 255, green: CGFloat(122) / 255, blue: CGFloat(255) / 255, alpha: CGFloat(1))
+        }
     }
     
     @IBAction func calculateTip(sender: AnyObject) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        
-        defaults.setInteger(percentSegment.selectedSegmentIndex, forKey: "default_tip")
+        userDefaults.setInteger(percentSegment.selectedSegmentIndex, forKey: "default_tip")
         
         updateTip()
     }
