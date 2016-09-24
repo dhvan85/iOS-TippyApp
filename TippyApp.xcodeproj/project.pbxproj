@@ -16,6 +16,7 @@
 		40536FA41D8905DE008C6077 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40536FA21D8905DE008C6077 /* LaunchScreen.storyboard */; };
 		40536FAF1D8905DF008C6077 /* TippyAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40536FAE1D8905DF008C6077 /* TippyAppTests.swift */; };
 		40536FBA1D8905DF008C6077 /* TippyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40536FB91D8905DF008C6077 /* TippyAppUITests.swift */; };
+		40CF5E871D965BE000A4CD3F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CF5E861D965BE000A4CD3F /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		40536FB51D8905DF008C6077 /* TippyAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TippyAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40536FB91D8905DF008C6077 /* TippyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TippyAppUITests.swift; sourceTree = "<group>"; };
 		40536FBB1D8905DF008C6077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40CF5E861D965BE000A4CD3F /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				40536FA01D8905DE008C6077 /* Assets.xcassets */,
 				40536FA21D8905DE008C6077 /* LaunchScreen.storyboard */,
 				40536FA51D8905DF008C6077 /* Info.plist */,
+				40CF5E861D965BE000A4CD3F /* Settings.swift */,
 			);
 			path = TippyApp;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40CF5E871D965BE000A4CD3F /* Settings.swift in Sources */,
 				40536F9C1D8905DE008C6077 /* TipViewController.swift in Sources */,
 				40536F9A1D8905DE008C6077 /* AppDelegate.swift in Sources */,
 				40017FFB1D8B133A00941ABC /* README.md in Sources */,

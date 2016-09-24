@@ -14,9 +14,10 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var defaultSegment: UISegmentedControl!
     @IBOutlet var thisView: UIView!
     
+    @IBOutlet weak var currentPercentText: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var darkThemeLabel: UILabel!
-    let userDefaults = NSUserDefaults.standardUserDefaults()
+    var settings = Settings()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +26,17 @@ class SettingsViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        let index = userDefaults.integerForKey("default_tip")
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+    
+        settings = (userDefaults.objectForKey("default_settings") as? Settings) ?? Settings()
         
-        themeSwitch.on = userDefaults.boolForKey("default_theme")
-        defaultSegment.selectedSegmentIndex = index
+        themeSwitch.on = settings.darkTheme
+        defaultSegment.selectedSegmentIndex = settings.defaultIndex
+        
+        for index in 0...2
+        {
+         defaultSegment.setTitle(String(settings.percentArray[index] * 100) + "%", forSegmentAtIndex: index)
+        }
         
         updateTheme()
     }
@@ -38,19 +46,28 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+    
+        userDefaults.setObject(settings, forKey: "default_settings")
+    }
+    
     @IBAction func onValueChanged(sender: AnyObject) {
-        userDefaults.setInteger(defaultSegment.selectedSegmentIndex, forKey: "default_tip")
-        
-        userDefaults.synchronize()
+        settings.defaultIndex = defaultSegment.selectedSegmentIndex
     }
 
+    @IBAction func currentPercentChange(sender: AnyObject) {
+        defaultSegment.setTitle(currentPercentText.text ?? "0" + "%", forSegmentAtIndex: settings.defaultIndex)
+        settings.percentArray[settings.defaultIndex] = Double(currentPercentText.text ?? "0")! / 100.0
+    }
+    
     @IBAction func changeTheme(sender: AnyObject) {
-        userDefaults.setBool(themeSwitch.on, forKey: "default_theme")
         updateTheme()
+        settings.darkTheme = themeSwitch.on
     }
     
     func updateTheme() {
-        if (userDefaults.boolForKey("default_theme") == true) {
+        if (settings.darkTheme == true) {
             thisView.backgroundColor = UIColor.darkGrayColor()
             
             tipLabel.textColor = UIColor.whiteColor()

@@ -20,10 +20,10 @@ class TipViewController: UIViewController {
     @IBOutlet weak var totalValue: UILabel!
     
     @IBOutlet weak var tipValue: UILabel!
-    let percentArray = [0.18, 0.2, 0.25]
     let currentLocale = NSLocale.currentLocale()
     let formater = NSNumberFormatter()
     let userDefaults = NSUserDefaults.standardUserDefaults()
+    var settings = Settings()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +47,17 @@ class TipViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        let index = userDefaults.integerForKey("default_tip")
+        settings = (userDefaults.objectForKey("default_settings") as? Settings) ?? Settings()
         
         billText.becomeFirstResponder()
-        percentSegment.selectedSegmentIndex = index
         
+        for index in 1...3
+        {
+            percentSegment.setTitle(String(settings.percentArray[index - 1] * 100) + "%", forSegmentAtIndex: index - 1)
+       }
+        
+        percentSegment.selectedSegmentIndex = settings.defaultIndex
+    
         updateTip()
         updateTheme()
     }
@@ -63,7 +69,7 @@ class TipViewController: UIViewController {
     
     func updateTip(){
         let billAmount = Double(billText.text!) ?? 0
-        let tipAmount = billAmount * percentArray[percentSegment.selectedSegmentIndex]
+        let tipAmount = billAmount * settings.percentArray[settings.defaultIndex]
         let totalAmount = billAmount + tipAmount
         
         tipValue.text = formater.stringFromNumber(tipAmount)
@@ -76,7 +82,7 @@ class TipViewController: UIViewController {
     }
     
     func updateTheme() {
-        if (userDefaults.boolForKey("default_theme") == true) {
+        if (settings.darkTheme == true) {
             thisView.backgroundColor = UIColor.darkGrayColor()
             
             tipLabel.textColor = UIColor.whiteColor()
@@ -101,7 +107,7 @@ class TipViewController: UIViewController {
     }
     
     @IBAction func calculateTip(sender: AnyObject) {
-        userDefaults.setInteger(percentSegment.selectedSegmentIndex, forKey: "default_tip")
+        settings.defaultIndex = percentSegment.selectedSegmentIndex
         
         updateTip()
     }
