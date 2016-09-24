@@ -16,13 +16,15 @@ class TipViewController: UIViewController {
     @IBOutlet weak var billText: UITextField!
     @IBOutlet weak var billLabel: UILabel!
     @IBOutlet weak var horizontalLine: UIView!
-    @IBOutlet var thisView: UIView!
     @IBOutlet weak var totalValue: UILabel!
     
     @IBOutlet weak var tipValue: UILabel!
     let currentLocale = NSLocale.currentLocale()
     let formater = NSNumberFormatter()
     let userDefaults = NSUserDefaults.standardUserDefaults()
+    
+    let blueColor = UIColor(red:CGFloat(23) / 255, green: CGFloat(122) / 255, blue: CGFloat(255) / 255, alpha: CGFloat(1))
+    
     var settings = Settings()
     
     override func viewDidLoad() {
@@ -47,14 +49,16 @@ class TipViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        settings = (userDefaults.objectForKey("default_settings") as? Settings) ?? Settings()
+        if let data = NSUserDefaults.standardUserDefaults().objectForKey("default_settings") as? NSData {
+            settings = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Settings
+        }
         
         billText.becomeFirstResponder()
         
-        for index in 1...3
-        {
-            percentSegment.setTitle(String(settings.percentArray[index - 1] * 100) + "%", forSegmentAtIndex: index - 1)
-       }
+        for index in 0...2 {
+            percentSegment.setTitle(String(format: "%0.0f%%", settings.percentArray[index] * 100), forSegmentAtIndex: index)
+        }
+       
         
         percentSegment.selectedSegmentIndex = settings.defaultIndex
     
@@ -83,7 +87,7 @@ class TipViewController: UIViewController {
     
     func updateTheme() {
         if (settings.darkTheme == true) {
-            thisView.backgroundColor = UIColor.darkGrayColor()
+            view.backgroundColor = UIColor.darkGrayColor()
             
             tipLabel.textColor = UIColor.whiteColor()
             totalLabel.textColor = UIColor.whiteColor()
@@ -94,15 +98,15 @@ class TipViewController: UIViewController {
             percentSegment.tintColor = UIColor.yellowColor();
         }
         else {
-            thisView.backgroundColor = UIColor.whiteColor()
+            view.backgroundColor = UIColor.whiteColor()
             
             tipLabel.textColor = UIColor.darkTextColor()
             totalLabel.textColor = UIColor.darkTextColor()
             billLabel.textColor = UIColor.darkTextColor()
             tipValue.textColor = UIColor.darkTextColor()
-            totalValue.textColor = UIColor(red:CGFloat(23) / 255, green: CGFloat(122) / 255, blue: CGFloat(255) / 255, alpha: CGFloat(1))
             horizontalLine.backgroundColor = UIColor.darkTextColor()
-            percentSegment.tintColor = UIColor(red:CGFloat(23) / 255, green: CGFloat(122) / 255, blue: CGFloat(255) / 255, alpha: CGFloat(1))
+            totalValue.textColor = blueColor
+            percentSegment.tintColor = blueColor
         }
     }
     
@@ -113,6 +117,6 @@ class TipViewController: UIViewController {
     }
     
     @IBAction func onTap(sender: AnyObject) {
-        view.endEditing(true);
+//        view.endEditing(true);
     }
 }

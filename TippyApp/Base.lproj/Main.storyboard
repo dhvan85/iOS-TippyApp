@@ -110,7 +110,6 @@
                         <outlet property="billText" destination="qBf-MO-bH6" id="nMp-BQ-t5s"/>
                         <outlet property="horizontalLine" destination="0uq-54-CFx" id="a38-Ce-6kY"/>
                         <outlet property="percentSegment" destination="kl8-EE-eRB" id="uYh-dG-keo"/>
-                        <outlet property="thisView" destination="8bC-Xf-vdC" id="KUR-Qe-GBl"/>
                         <outlet property="tipLabel" destination="TlW-Em-dh3" id="Ygf-lR-CxB"/>
                         <outlet property="tipValue" destination="qbf-12-mcR" id="7I5-n7-S2N"/>
                         <outlet property="totalLabel" destination="H5Z-Kf-DIy" id="2hb-xn-os3"/>
@@ -167,14 +166,14 @@
                                     <segment title="25%"/>
                                 </segments>
                                 <connections>
-                                    <action selector="onValueChanged:" destination="gMe-kh-GJ3" eventType="valueChanged" id="xeB-30-Mwe"/>
+                                    <action selector="onPercentSegment_ValueChanged:" destination="gMe-kh-GJ3" eventType="valueChanged" id="Qga-YO-IU5"/>
                                 </connections>
                             </segmentedControl>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="l1L-CR-8jk">
                                 <rect key="frame" x="251" y="86" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="changeTheme:" destination="gMe-kh-GJ3" eventType="valueChanged" id="a8I-Qe-DuH"/>
+                                    <action selector="onThemeSwitch_Toggle:" destination="gMe-kh-GJ3" eventType="valueChanged" id="XBV-mu-LTv"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default tip" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gcL-GS-Xtv">
@@ -184,29 +183,38 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter percent" textAlignment="right" minimumFontSize="17" id="CG8-XT-9R0">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter percent" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" id="CG8-XT-9R0">
                                 <rect key="frame" x="174" y="146" width="126" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                                 <connections>
-                                    <action selector="currentPercentChange:" destination="gMe-kh-GJ3" eventType="valueChanged" id="UpU-lj-ayq"/>
+                                    <action selector="onPercentText_EditChanged:" destination="gMe-kh-GJ3" eventType="editingChanged" id="8xN-Af-N1t"/>
                                 </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="2J1-qJ-G3x" appends="YES" id="DPF-qC-v0N"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="aQj-82-yMI"/>
                     <connections>
-                        <outlet property="currentPercentText" destination="CG8-XT-9R0" id="Ciw-Pt-4zW"/>
                         <outlet property="darkThemeLabel" destination="IvG-yx-JaH" id="HqW-ai-BuK"/>
-                        <outlet property="defaultSegment" destination="lou-JD-6Rh" id="QSa-q0-XHV"/>
+                        <outlet property="percentSegment" destination="lou-JD-6Rh" id="fbd-9E-0Hu"/>
+                        <outlet property="percentText" destination="CG8-XT-9R0" id="uBq-hg-z1F"/>
                         <outlet property="themeSwitch" destination="l1L-CR-8jk" id="VRZ-rm-hJE"/>
                         <outlet property="thisView" destination="Njr-Ed-twu" id="J6K-DP-sGJ"/>
                         <outlet property="tipLabel" destination="gcL-GS-Xtv" id="f2X-a2-Lq5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7p7-HW-yFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="2J1-qJ-G3x">
+                    <connections>
+                        <action selector="onTap:" destination="gMe-kh-GJ3" id="0AX-24-mOe"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1342" y="397"/>
         </scene>
