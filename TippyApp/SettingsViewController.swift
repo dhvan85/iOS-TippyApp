@@ -47,6 +47,7 @@ class SettingsViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
+        settings.percentArray.sortInPlace()
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let data  = NSKeyedArchiver.archivedDataWithRootObject(settings)
         

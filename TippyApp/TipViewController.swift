@@ -38,7 +38,7 @@ class TipViewController: UIViewController {
     func willEnterForeground(notification: NSNotification!) {
         let date = userDefaults.objectForKey("last_time") as? NSDate
 
-        if date != nil && date!.timeIntervalSinceNow < -60 {
+        if date != nil && date!.timeIntervalSinceNow < -6 {
             billText.text = ""
             updateTip()
         }
@@ -71,7 +71,7 @@ class TipViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func updateTip(){
+    func updateTip() {
         let billAmount = Double(billText.text!) ?? 0
         let tipAmount = billAmount * settings.percentArray[settings.defaultIndex]
         let totalAmount = billAmount + tipAmount
@@ -113,8 +113,17 @@ class TipViewController: UIViewController {
     @IBAction func calculateTip(sender: AnyObject) {
         settings.defaultIndex = percentSegment.selectedSegmentIndex
         
+        let value = Int64(billText.text!)
+        if value == nil {
+            billText.text = ""
+        }
+        else if value >= 0 {
+            billText.text = String(value!)
+        }
+        
         updateTip()
     }
+    
     
     @IBAction func onTap(sender: AnyObject) {
 //        view.endEditing(true);
